@@ -1,7 +1,7 @@
 import os.path
 from pathlib import Path
 from subprocess import call
-
+import scipy
 
 def listing(path = Path('train/') ):
     train = path
