@@ -3,16 +3,18 @@ import wave
 import numpy as np
 import scipy.io.wavfile
 import librosa
+import xboost
+import rpy2
 def main():
-    print(sys.argv[1])
+
     if len(sys.argv) > 1:
         # Read file
 
         y, sr = librosa.load(sys.argv[1])
-
+        label = ((sys.argv[1])[-5])
         params = spectral_properties(y,sr)
         print(params)
-
+        xboost.main(params,label)
 def spectral_properties(y,fs):
     spec = np.abs(np.fft.rfft(y))
     freq = np.fft.rfftfreq(len(y), d=1 / fs)
@@ -31,17 +33,8 @@ def spectral_properties(y,fs):
     skew = ((z * 3).sum() / (len(spec) - 1)) / w * 3
     kurt = ((z * 4).sum() / (len(spec) - 1)) / w * 4
 
-    result_d = {
-        'mean': mean,
-        'sd': sd,
-        'median': median,
-        'Q25': Q25,
-        'Q75': Q75,
-        'IQR': IQR,
-        'skew': skew,
-        'kurt': kurt,
-        'mode': mode
-    }
+    result_d = [mean,sd,median,Q25,Q75,IQR,skew,kurt,mode]
+
     return result_d
 if __name__ == '__main__':
     main()
