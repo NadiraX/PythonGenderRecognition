@@ -35,12 +35,12 @@ def spectral_properties(y,fs):
         'mean': mean,
         'sd': sd,
         'median': median,
-        'mode': mode,
         'Q25': Q25,
         'Q75': Q75,
         'IQR': IQR,
         'skew': skew,
-        'kurt': kurt
+        'kurt': kurt,
+        'mode': mode
     }
     return result_d
 if __name__ == '__main__':
